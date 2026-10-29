@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.disasterapp.databinding.ActivityMainBinding
+import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,12 +17,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val adapterDisaster = DisasterAdapter(generateDummy())
+        val adapterDisaster = DisasterAdapter(generateDummy()) { disaster ->
+
+            Toast.makeText(
+                this@MainActivity,
+                "You clicked on ${disaster.nameDisaster}",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        }
 
         with(binding) {
             rvDisaster.apply {
                 adapter = adapterDisaster
-                layoutManager = LinearLayoutManager(this@MainActivity)
+                layoutManager = GridLayoutManager(this@MainActivity, 2)
             }
         }
     }
@@ -29,35 +39,43 @@ class MainActivity : AppCompatActivity() {
         return listOf(
             Disaster(
                 nameDisaster = "Tsunami",
-                disasterType = "Natural"
+                disasterType = "Natural",
+                disasterImage = R.drawable.tsunami
             ),
             Disaster(
                 nameDisaster = "Volcanic Eruption",
-                disasterType = "Natural"
+                disasterType = "Natural",
+                disasterImage = R.drawable.volcano
             ),
             Disaster(
                 nameDisaster = "Earthquake",
-                disasterType = "Natural"
+                disasterType = "Natural",
+                disasterImage = R.drawable.earthquake
             ),
             Disaster(
                 nameDisaster = "Flood",
-                disasterType = "Natural"
+                disasterType = "Natural",
+                disasterImage = R.drawable.flood
             ),
             Disaster(
                 nameDisaster = "Fire",
-                disasterType = "Natural"
+                disasterType = "Natural",
+                disasterImage = R.drawable.fire
             ),
             Disaster(
                 nameDisaster = "Nuclear Accident",
-                disasterType = "Man-made"
+                disasterType = "Man-made",
+                disasterImage = R.drawable.nuclear
             ),
             Disaster(
                 nameDisaster = "Terrorist Attack",
-                disasterType = "Man-made"
+                disasterType = "Man-made",
+                disasterImage = R.drawable.terrorist
             ),
             Disaster(
                 nameDisaster = "War",
-                disasterType = "Man-made"
+                disasterType = "Man-made",
+                disasterImage = R.drawable.war
             )
         )
     }
